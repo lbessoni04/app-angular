@@ -40,7 +40,7 @@ module.exports = function (config) {
     browsers: ['Chrome'],
     chromeOptions: {
       args: ['--headless', '--no-sandbox']
-    }
+    },
     singleRun: false,
     restartOnFileChange: true
   });
