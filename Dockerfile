@@ -2,8 +2,11 @@ FROM node:16.14.2-slim
 
 #Essential tools and xvfb
 RUN apt-get update && apt-get install -y \
+    software-properties-common \
+    unzip \
+    curl \
     wget \
-    gnupg2
+    xvfb
 
 RUN wget -q -O - https://dl-ssl.google.com/linux/linux_signing_key.pub \
         | apt-key add - \
