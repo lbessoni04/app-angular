@@ -11,7 +11,8 @@ RUN curl https://dl-ssl.google.com/linux/linux_signing_key.pub | apt-key add \
       && dpkg -i download-chrome*.deb || true
 RUN apt-get install -y -f \
       && rm -rf /var/lib/apt/lists/*
-        
+ENV CHROME_BIN=/usr/bin/chromium-browser
+
 #Adding Angular/CLI
 RUN mkdir /usr/src/app
 WORKDIR /usr/src/app
