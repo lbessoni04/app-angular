@@ -10,11 +10,12 @@ RUN apt-get update -qq \
   
 SHELL ["/bin/bash", "-o", "pipefail", "-c"]
   
-RUN wget https://dl.google.com/linux/direct/google-chrome-stable_current_amd64.deb \
-  && apt install ./google-chrome-stable_current_amd64.deb
+RUN wget -q -O - https://dl.google.com/linux/direct/google-chrome-stable_current_amd64.deb | apt-key add - \
+  && apt install ./google-chrome-stable_current_amd64.deb \
+  && apt-get update -qq \
+  && apt-get install -qq --no-install-recommends \
+    google-chrome-stable \
+  && apt-get clean \
+  && rm -rf /var/lib/apt/lists/*
 
-RUN mkdir /usr/src/app
 
-WORKDIR /usr/src/app
-
-RUN npm install -g @angular/cli
