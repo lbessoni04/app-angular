@@ -20,8 +20,7 @@ pipeline {
 
     stage('Test') {
       steps {
-        sh 'docker run --security-opt=syscomp:unconfined'
-        sh 'ng test'
+        sh 'ng test --browsers ChromeHeadless'
       }
     }
 
