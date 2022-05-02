@@ -12,4 +12,9 @@ RUN curl https://dl-ssl.google.com/linux/linux_signing_key.pub | apt-key add \
 RUN apt-get install -y -f \
       && rm -rf /var/lib/apt/lists/*
 
+#Adding Angular/CLI
+RUN mkdir /usr/src/app
+WORKDIR /usr/src/app
+RUN npm install -g @angular/cli    
+
 
