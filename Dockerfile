@@ -5,6 +5,7 @@ RUN apt-get update && apt-get install -y \
     software-properties-common \
     unzip \
     curl \
+    gnpug2 \
     wget \
     xvfb
 
