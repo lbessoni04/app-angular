@@ -4,9 +4,7 @@ FROM node:16.14.2-slim
 RUN apt-get update && apt-get install -y \        
     wget \
     gnpug2 \
-    unzip \
-    curl \
-    xvfb
+    unzip 
 
 RUN wget -q -O - https://dl-ssl.google.com/linux/linux_signing_key.pub \
         | apt-key add - \
