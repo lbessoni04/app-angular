@@ -2,7 +2,8 @@ FROM node:16.14.2-slim
 
 #Essential tools and xvfb
 RUN apt-get update && apt-get install -y \        
-    wget 
+    wget \
+    gnpug2
     
 #Chrome browser to run the tests
 #ARG CHROME_VERSION=65.0.3325.181
