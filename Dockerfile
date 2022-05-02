@@ -1,21 +1,15 @@
 FROM node:16.14.2-slim
 
-RUN apt-get update -qq \
-  && apt-get install -qq --no-install-recommends \
-    wget \
-    gnupg2 \
-    ca-certificates \
-    apt-transport-https \
-  && apt-get upgrade -qq
-  
-SHELL ["/bin/bash", "-o", "pipefail", "-c"]
-  
-RUN wget -q -O - https://dl.google.com/linux/direct/google-chrome-stable_current_amd64.deb | apt-key add - \
-  && apt install ./google-chrome-stable_current_amd64.deb \
-  && apt-get update -qq \
-  && apt-get install -qq --no-install-recommends \
-    google-chrome-stable \
-  && apt-get clean \
-  && rm -rf /var/lib/apt/lists/*
+#Essential tools and xvfb
+RUN apt-get update && apt-get install -y \
+    wget 
+
+#Chrome browser to run the tests
+ARG CHROME_VERSION=65.0.3325.181
+RUN curl https://dl-ssl.google.com/linux/linux_signing_key.pub | apt-key add \
+      && wget https://www.slimjet.com/chrome/download-chrome.php?file=lnx%2Fchrome64_$CHROME_VERSION.deb \
+      && dpkg -i download-chrome*.deb || true
+RUN apt-get install -y -f \
+      && rm -rf /var/lib/apt/lists/*
 
 
