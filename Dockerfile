@@ -2,7 +2,6 @@ FROM node:16.14.2-slim
 
 #Essential tools and xvfb
 RUN apt-get update && apt-get install -y \
-    software-properties-common \
     unzip \
     curl \
     gnpug2 \
