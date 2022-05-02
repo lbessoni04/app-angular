@@ -39,7 +39,7 @@ module.exports = function (config) {
     autoWatch: true,
     browsers: ['Chrome'],
     chromeOptions: {
-      args: ['--headless', '--no-sandbox']
+      args: ['--headless']
     },
     singleRun: false,
     restartOnFileChange: true
