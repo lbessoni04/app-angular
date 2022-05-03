@@ -1,8 +1,7 @@
 FROM justinribeiro/chrome-headless:latest
 
 #Essential tools and xvfb
-RUN apt-get update && apt-get install -y \        
-    curl
+RUN apt-get update && apt-get install -y 
 
 #Installing Nodejs
 RUN curl -sL https://deb.nodesource.com/setup_16.x | bash - 
