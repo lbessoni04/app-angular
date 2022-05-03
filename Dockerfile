@@ -1,6 +1,6 @@
-FROM node:16.15.0-slim
+#FROM node:16.15.0-slim
 
-USER root
+#USER root
 
 #Essential tools and xvfb
 #RUN apt-get update && apt-get install -y \
@@ -8,21 +8,12 @@ USER root
     #curl \
     #gnupg
     
-RUN apt-get update -qq \
-  && apt-get install -qq --no-install-recommends \
-    wget \
-    gnupg2 \
-    ca-certificates \
-    apt-transport-https \
-  && apt-get upgrade -qq
-  
-RUN wget -q -O - https://dl-ssl.google.com/linux/linux_signing_key.pub | apt-key add - \
-  && echo "deb https://dl.google.com/linux/chrome/deb/ stable main" >> /etc/apt/sources.list.d/google-chrome.list \
-  && apt-get update -qq \
-  && apt-get install -qq --no-install-recommends \
-    google-chrome-stable \
-  && apt-get clean \
-  && rm -rf /var/lib/apt/lists/*
+FROM zenika/alpine-chrome
+
+USER root
+RUN apk add --no-cache tini make gcc g++ python3 git nodejs nodejs-npm yarn
+USER chrome
+ENTRYPOINT ["tini", "--"]
   
 #--NO ME CORRE EL INSTALL NPM  
 #RUN curl -sL https://deb.nodesource.com/setup_16.x  | bash -
