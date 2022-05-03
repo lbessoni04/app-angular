@@ -1,13 +1,19 @@
 FROM justinribeiro/chrome-headless:latest
 USER root
 #Essential tools and xvfb
-RUN apt-get update && apt-get install -y 
+RUN apt-get update && apt-get install -y \
+    software-properties-common \
+    npm
 
 #Installing Nodejs
-RUN curl -sL https://deb.nodesource.com/setup_16.x | bash - 
-RUN apt-get install -y nodejs
-RUN install npm
+#RUN curl -sL https://deb.nodesource.com/setup_16.x | bash - 
+#RUN apt-get install -y nodejs
+#RUN install npm
 
+RUN npm install npm@latest -g && \
+    npm install n -g && \
+    n latest
+    
 #Chrome browser to run the tests
 #ARG CHROME_VERSION=65.0.3325.181
 #RUN curl https://dl-ssl.google.com/linux/linux_signing_key.pub | apt-key add \
