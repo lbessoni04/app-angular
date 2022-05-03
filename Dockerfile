@@ -6,7 +6,7 @@ RUN apt-get update && apt-get install -y
 #Installing Nodejs
 RUN curl -sL https://deb.nodesource.com/setup_16.x | bash - 
 RUN apt-get install -y nodejs
-RUN npm install
+RUN install npm
 
 #Chrome browser to run the tests
 #ARG CHROME_VERSION=65.0.3325.181
