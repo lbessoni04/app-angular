@@ -31,6 +31,7 @@ ENTRYPOINT ["tini", "--"]
 
 #Adding Angular/CLI
 #RUN mkdir /usr/src/app
+USER root
 WORKDIR /usr/src/app
 RUN npm install -g @angular/cli    
 
