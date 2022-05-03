@@ -3,16 +3,17 @@ USER root
 #Essential tools and xvfb
 RUN apt-get update && apt-get install -y \
     software-properties-common \
-    npm
+    curl \
+    gnupg
 
 #Installing Nodejs
 #RUN curl -sL https://deb.nodesource.com/setup_16.x | bash - 
 #RUN apt-get install -y nodejs
 #RUN install npm
-
-RUN npm install npm@latest -g && \
-    npm install n -g && \
-    n latest
+  
+RUN curl -sL https://deb.nodesource.com/setup_16.x  | bash -
+RUN apt-get -y install nodejs
+RUN npm install
     
 RUN npm --version
 #Chrome browser to run the tests
