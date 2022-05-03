@@ -1,5 +1,5 @@
 FROM justinribeiro/chrome-headless:latest
-
+USER root
 #Essential tools and xvfb
 RUN apt-get update && apt-get install -y 
 
