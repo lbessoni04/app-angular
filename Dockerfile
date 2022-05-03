@@ -1,4 +1,4 @@
-#FROM node:16.15.0-slim
+FROM node:16.15.0-slim
 
 #USER root
 
@@ -8,12 +8,12 @@
     #curl \
     #gnupg
     
-FROM zenika/alpine-chrome
+#FROM zenika/alpine-chrome
 
-USER root
-RUN apk add --no-cache tini make gcc g++ python3 git nodejs nodejs-npm yarn
-USER chrome
-ENTRYPOINT ["tini", "--"]
+#USER root
+#RUN apk add --no-cache tini make gcc g++ python3 git nodejs nodejs-npm yarn
+#USER chrome
+#ENTRYPOINT ["tini", "--"]
   
 #--NO ME CORRE EL INSTALL NPM  
 #RUN curl -sL https://deb.nodesource.com/setup_16.x  | bash -
@@ -30,8 +30,8 @@ ENTRYPOINT ["tini", "--"]
 #ENV CHROME_BIN=/usr/bin/chromium-browser
 
 #Adding Angular/CLI
-#RUN mkdir /usr/src/app
-USER root
+RUN mkdir /usr/src/app
+#USER root
 WORKDIR /usr/src/app
 RUN npm install -g @angular/cli    
 
