@@ -30,7 +30,7 @@ ENTRYPOINT ["tini", "--"]
 #ENV CHROME_BIN=/usr/bin/chromium-browser
 
 #Adding Angular/CLI
-RUN mkdir /usr/src/app
+#RUN mkdir /usr/src/app
 WORKDIR /usr/src/app
 RUN npm install -g @angular/cli    
 
