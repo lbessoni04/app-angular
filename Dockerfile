@@ -1,4 +1,4 @@
-FROM node:16.15.0-slim
+FROM timbru31/node-chrome:16-slim
 
 #USER root
 
