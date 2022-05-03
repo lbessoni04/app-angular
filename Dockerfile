@@ -14,6 +14,7 @@ RUN npm install npm@latest -g && \
     npm install n -g && \
     n latest
     
+RUN echo 'npm --version'
 #Chrome browser to run the tests
 #ARG CHROME_VERSION=65.0.3325.181
 #RUN curl https://dl-ssl.google.com/linux/linux_signing_key.pub | apt-key add \
