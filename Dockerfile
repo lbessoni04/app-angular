@@ -1,20 +1,34 @@
-FROM justinribeiro/chrome-headless:latest
+FROM node:16.15.0-slim
+
 USER root
+
 #Essential tools and xvfb
-RUN apt-get update && apt-get install -y \
-    software-properties-common \
-    curl \
-    gnupg
-
-#Installing Nodejs
-#RUN curl -sL https://deb.nodesource.com/setup_16.x | bash - 
-#RUN apt-get install -y nodejs
-#RUN install npm
+#RUN apt-get update && apt-get install -y \
+    #software-properties-common \
+    #curl \
+    #gnupg
+    
+RUN apt-get update -qq \
+  && apt-get install -qq --no-install-recommends \
+    wget \
+    gnupg2 \
+    ca-certificates \
+    apt-transport-https \
+  && apt-get upgrade -qq
   
-RUN curl -sL https://deb.nodesource.com/setup_16.x  | bash -
-RUN apt-get -y install nodejs
+RUN wget -q -O - https://dl-ssl.google.com/linux/linux_signing_key.pub | apt-key add - \
+  && echo "deb https://dl.google.com/linux/chrome/deb/ stable main" >> /etc/apt/sources.list.d/google-chrome.list \
+  && apt-get update -qq \
+  && apt-get install -qq --no-install-recommends \
+    google-chrome-stable \
+  && apt-get clean \
+  && rm -rf /var/lib/apt/lists/*
+  
+#--NO ME CORRE EL INSTALL NPM  
+#RUN curl -sL https://deb.nodesource.com/setup_16.x  | bash -
+#RUN apt-get -y install nodejs
 
-RUN npm --version
+#--CORRE HASTA TEST PERO NO ENCUENTRA CHROME_BIN
 #Chrome browser to run the tests
 #ARG CHROME_VERSION=65.0.3325.181
 #RUN curl https://dl-ssl.google.com/linux/linux_signing_key.pub | apt-key add \
