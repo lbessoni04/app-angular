@@ -1,4 +1,4 @@
-FROM ustinribeiro/chrome-headless:latest
+FROM justinribeiro/chrome-headless:latest
 
 #Essential tools and xvfb
 RUN apt-get update && apt-get install -y \        
