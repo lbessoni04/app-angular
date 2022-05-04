@@ -9,7 +9,6 @@ pipeline {
   stages {
     stage('Install') {
       steps {
-        echo 'Probando 1 2 3'
         sh 'npm install'
       }
     }
