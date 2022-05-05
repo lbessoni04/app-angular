@@ -10,8 +10,8 @@ pipeline {
     stage('Install') {
       steps {
         sh 'npm install'
-        echo params.RESOURCE_GROUP
-        echo "${params.RESOURCE_GROUP}"
+        echo params.AZURE_CREDENTIAL
+        echo "${params.APP_NAME}"
       }
     }
 
@@ -42,5 +42,7 @@ pipeline {
   }
   parameters {
     string(name: 'RESOURCE_GROUP', defaultValue: 'SOCIUSRGLAB-RG-MODELODEVOPS-DEV', description: 'Grupo de Recursos')
+    string(name: 'APP_NAME', defaultValue: 'sociuswebapptest007', description: 'Nombre de App Service')
+    credentials(name: 'AZURE_CREDENTIAL', defaultValue: 'AZURE_CREDENTIAL_ID', description: 'Credenciales de Azure', credentialType: 'Azure Service Principal', required: true)
   }
 }
