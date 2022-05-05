@@ -10,6 +10,8 @@ pipeline {
     stage('Install') {
       steps {
         sh 'npm install'
+        echo params.RESOURCE_GROUP
+        echo "${params.RESOURCE_GROUP}"
       }
     }
 
@@ -37,5 +39,8 @@ pipeline {
       }
     }
 
+  }
+  parameters {
+    string(name: 'RESOURCE_GROUP', defaultValue: 'SOCIUSRGLAB-RG-MODELODEVOPS-DEV', description: 'Grupo de Recursos')
   }
 }
