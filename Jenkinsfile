@@ -10,7 +10,7 @@ pipeline {
     stage('Install') {
       steps {
         sh 'npm install'
-        echo params.AZURE_CREDENTIAL
+        echo params.AZURE_CREDENTIAL_ID
         echo "${params.APP_NAME}"
       }
     }
@@ -35,7 +35,7 @@ pipeline {
 
       }
       steps {
-        echo currentBuild.result
+        azureWebAppPublish(azureCredentialsId: params.AZURE_CREDENTIAL_ID, resourceGroup: params.RESOURCE_GROUP, appName: params.APP_NAME, deployOnlyIfSuccessful: true)
       }
     }
 
@@ -43,6 +43,6 @@ pipeline {
   parameters {
     string(name: 'RESOURCE_GROUP', defaultValue: 'SOCIUSRGLAB-RG-MODELODEVOPS-DEV', description: 'Grupo de Recursos')
     string(name: 'APP_NAME', defaultValue: 'sociuswebapptest007', description: 'Nombre de App Service')
-    credentials(name: 'AZURE_CREDENTIAL', defaultValue: 'AZURE_CREDENTIAL_ID', description: 'Credenciales de Azure', credentialType: 'Azure Service Principal', required: true)
+    credentials(name: 'AZURE_CREDENTIAL_ID', defaultValue: 'AZURE_CREDENTIAL_ID', description: 'Credenciales de Azure', credentialType: 'Azure Service Principal', required: true)
   }
 }
