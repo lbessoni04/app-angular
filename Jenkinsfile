@@ -16,7 +16,6 @@ pipeline {
     stage('Build') {
       steps {
         sh 'ng build --prod'
-        sh 'ls'
       }
     }
 
@@ -29,6 +28,9 @@ pipeline {
     stage('Deploy') {
       steps {
         echo 'hola'
+        sh 'cd dist'
+        sh 'cd app-angular'
+        sh 'ls'
       }
     }
 
