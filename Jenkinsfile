@@ -1,7 +1,7 @@
 pipeline {
   agent {
-    dockerfile {
-      filename 'Dockerfile'
+    docker {
+      image 'valen97/node-chrome-angular'
       args '--privileged'
     }
 
@@ -10,8 +10,6 @@ pipeline {
     stage('Install') {
       steps {
         sh 'npm install'
-        echo params.AZURE_CREDENTIAL_ID
-        echo "${params.APP_NAME}"
       }
     }
 
@@ -28,14 +26,8 @@ pipeline {
     }
 
     stage('Deploy') {
-      when {
-        expression {
-          currentBuild.result == null || currentBuild.result == 'SUCCESS'
-        }
-
-      }
       steps {
-        azureWebAppPublish(azureCredentialsId: params.AZURE_CREDENTIAL_ID, resourceGroup: params.RESOURCE_GROUP, appName: params.APP_NAME, deployOnlyIfSuccessful: true)
+        echo 'hola'
       }
     }
 
