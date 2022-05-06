@@ -29,7 +29,6 @@ pipeline {
       steps {
         echo 'hola'
         sh 'cd dist'
-        sh 'cd app-angular'
         sh 'ls'
       }
     }
