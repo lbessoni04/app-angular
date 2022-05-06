@@ -27,7 +27,7 @@ pipeline {
 
     stage('Deploy') {
       steps {
-        azureWebAppPublish(azureCredentialsId: params.AZURE_CREDENTIAL_ID, resourceGroup: params.RESOURCE_GROUP, appName: params.APP_NAME, deployOnlyIfSuccessful: true)
+        azureWebAppPublish(azureCredentialsId: params.AZURE_CREDENTIAL_ID, resourceGroup: params.RESOURCE_GROUP, appName: params.APP_NAME, deployOnlyIfSuccessful: true, filePath: '**/*.js,package.json,process.json')
       }
     }
 
