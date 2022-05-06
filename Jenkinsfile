@@ -15,7 +15,7 @@ pipeline {
 
     stage('Build') {
       steps {
-        sh 'ng build --prod'
+        sh 'ng build'
       }
     }
 
@@ -27,9 +27,7 @@ pipeline {
 
     stage('Deploy') {
       steps {
-        echo 'hola'
-        sh 'cd dist'
-        sh 'ls'
+        azureWebAppPublish(azureCredentialsId: params.AZURE_CREDENTIAL_ID, resourceGroup: params.RESOURCE_GROUP, appName: params.APP_NAME, deployOnlyIfSuccessful: true)
       }
     }
 
