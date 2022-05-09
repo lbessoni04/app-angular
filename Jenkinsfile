@@ -32,7 +32,6 @@ pipeline {
       }
       steps {
         sh 'pwd'
-        echo "$DOCKER_HUB"
         azureWebAppPublish(azureCredentialsId: AZURE_CREDENTIAL_ID, resourceGroup: params.RESOURCE_GROUP, appName: params.APP_NAME, deployOnlyIfSuccessful: true, dockerImageName: 'angular-dockerizado', dockerImageTag: 'latest', dockerRegistryEndpoint: [credentialsId: ${DOCKER_HUB}, url: "https://hub.docker.com/r/valen97/angular-dockerizado"])
       }
     }
