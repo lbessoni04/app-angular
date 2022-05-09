@@ -1,11 +1,5 @@
 pipeline {
-  agent {
-    docker {
-      image 'valen97/node-chrome-angular'
-      args '--privileged'
-    }
-
-  }
+  agent any
   stages {
     stage('Install') {
       agent {
