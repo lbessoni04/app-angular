@@ -27,8 +27,8 @@ pipeline {
 
     stage('Deploy') {
       steps {
-        sh 'apt update'
-        sh 'apt install curl'
+        sh 'apt-get update'
+        sh 'apt-get install curl'
         sh 'curl -sL https://aka.ms/InstallAzureCLIDeb | bash'
       }
     }
