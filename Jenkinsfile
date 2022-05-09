@@ -26,12 +26,6 @@ pipeline {
     }
 
     stage('Deploy') {
-      agent {
-        docker {
-          image 'mcr.microsoft.com/azure-cli'
-        }
-
-      }
       steps {
         withCredentials(bindings: [azureServicePrincipal('AZURE_CREDENTIAL_ID')]) {
           sh 'az login --service-principal -u $AZURE_CLIENT_ID -p $AZURE_CLIENT_SECRET -t $AZURE_TENANT_ID'
