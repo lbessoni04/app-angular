@@ -26,13 +26,8 @@ pipeline {
     }
 
     stage('Deploy') {
-      environment {
-        AZURE_CREDENTIAL_ID = credentials('AZURE_CREDENTIAL_ID')
-        DOCKER_HUB = credentials('DockerHub')
-      }
       steps {
-        sh 'pwd'
-        azureWebAppPublish(azureCredentialsId: env.AZURE_CREDENTIAL_ID, resourceGroup: params.RESOURCE_GROUP, appName: params.APP_NAME, deployOnlyIfSuccessful: true, dockerImageName: 'angular-dockerizado', dockerImageTag: 'latest', dockerRegistryEndpoint: [credentialsId: ${env.DOCKER_HUB}, url: "https://hub.docker.com/r/valen97/angular-dockerizado"])
+        sh 'az login --service-principal -u 1c6914e6-5a2b-4c76-b99a-68614314529f -p Ecj5JBNsSEbLRew.JyB78_BSJbx8_t48RY -t 9297550c-fa07-4acd-ade0-49b8c437c2df'
       }
     }
 
