@@ -16,7 +16,7 @@ pipeline {
     stage('Build') {
       steps {
         sh 'ng build'
-        zip(zipFile: 'app', dir: '/dist/angular')
+        zip(zipFile: 'app-angular.zip', dir: "${env.WORKSPACE}"+'/dist/app-angular')
       }
     }
 
@@ -32,6 +32,7 @@ pipeline {
           sh 'az login --service-principal -u $AZURE_CLIENT_ID -p $AZURE_CLIENT_SECRET -t $AZURE_TENANT_ID'
           sh 'az webapp config appsettings set -g $RESOURCE_GROUP -n $APP_NAME --settings AZTENANTID=$AZURE_TENANT_ID'
           sh 'az account set -s $AZURE_SUBSCRIPTION_ID'
+          sh 'az webapp deploy --resource-group $RESOURCE_GROUP --name $APP_NAME --src-path "${env.WORKSPACE}"/app-angular.zip'
         }
 
       }
