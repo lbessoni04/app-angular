@@ -27,7 +27,7 @@ pipeline {
 
     stage('Deploy') {
       steps {
-        sh 'az --version'
+        sh 'azure --version'
       }
     }
 
