@@ -27,9 +27,10 @@ pipeline {
 
     stage('Deploy') {
       steps {
-        sh 'apt-get update'
-        sh 'apt-get install curl'
-        sh 'curl -sL https://aka.ms/InstallAzureCLIDeb | bash'
+        withCredentials(bindings: [azureServicePrincipal('AZURE_CREDENTIAL_ID')]) {
+          sh 'az login --service-principal -u $AZURE_CLIENT_ID -p $AZURE_CLIENT_SECRET -t $AZURE_TENANT_ID'
+        }
+
       }
     }
 
