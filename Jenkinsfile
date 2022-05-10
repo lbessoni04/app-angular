@@ -31,8 +31,7 @@ pipeline {
         withCredentials(bindings: [azureServicePrincipal('AZURE_CREDENTIAL_ID')]) {
           sh 'az login --service-principal -u $AZURE_CLIENT_ID -p $AZURE_CLIENT_SECRET -t $AZURE_TENANT_ID'
           sh 'az webapp config appsettings set -g $RESOURCE_GROUP -n $APP_NAME --settings AZTENANTID=$AZURE_TENANT_ID'
-          sh 'az account set -s $AZURE_SUBSCRIPTION_ID'
-          sh 'az webapp deploy --resource-group $RESOURCE_GROUP --name $APP_NAME --src-path "${env.WORKSPACE}"/app-angular.zip'
+          sh 'az webapp deployment source config-zip -g $RESOURCE_GROUP -n $APP_NAME --src ./app-angular.zip'
         }
 
       }
