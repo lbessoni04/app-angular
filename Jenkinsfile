@@ -1,7 +1,7 @@
 pipeline {
   agent {
     docker {
-      image 'valen97/node-chrome-angular'
+      image 'valen97/node-chrome-angular:azure-cli'
       args '--privileged'
     }
 
@@ -27,7 +27,7 @@ pipeline {
 
     stage('Deploy') {
       steps {
-        sh 'azure --version'
+        sh 'az --version'
       }
     }
 
