@@ -17,6 +17,7 @@ pipeline {
       steps {
         sh 'ng build'
         sh 'ls'
+        sh 'install zip'
         sh 'zip -r app-angular.zip /dist/app-angular'
       }
     }
