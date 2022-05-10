@@ -10,14 +10,13 @@ pipeline {
     stage('Install') {
       steps {
         sh 'npm install'
-        sh 'apt-get install zip '
       }
     }
 
     stage('Build') {
       steps {
         sh 'ng build'
-        sh 'zip -r app-angular.zip /dist/app-angular'
+        zip(zipFile: 'app', dir: '/dist/angular')
       }
     }
 
