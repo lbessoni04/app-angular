@@ -64,10 +64,20 @@ pipeline {
         }
 
         stage('Deploy Prod') {
+          environment {
+            dockerHome = tool 'docker'
+          }
           steps {            
             dir('prod'){
-              sh 'docker version'
               sh "echo 'FROM nginx:1.17.1-alpine \nCOPY dist/app-angular /usr/share/nginx/html' > Dockerfile"
+              sh "${dockerHome}/bin/docker login -u valen97 -p fc8f2d2d-bc53-42ff-8010-d378dc02f0b3"
+              sh "${dockerHome}/bin/docker build -t valen97/calculadora ."
+              sh "${dockerHome}/bin/docker push valen97/calculadora"
+              sh "${dockerHome}/bin/docker logout"
+              withCredentials(bindings: [azureServicePrincipal('AzureServicePrincipal')]) {
+                sh 'az login --service-principal -u $AZURE_CLIENT_ID -p $AZURE_CLIENT_SECRET -t $AZURE_TENANT_ID'  
+                sh 'az webapp create -n $APP_NAME_PROD -g $RESOURCE_GROUP_PROD -i valen97/calculadora'
+              }
             }
           }
         }
@@ -78,6 +88,8 @@ pipeline {
     string(name: 'ENV_PROD', defaultValue: 'production', description: 'Nombre del entorno de producción')
     string(name: 'ENV_DEV', defaultValue: 'development', description: 'Nombre del entorno de desarrollo')
     string(name: 'RESOURCE_GROUP', defaultValue: 'SOCIUSRGLAB-RG-MODELODEVOPS-DEV', description: 'Grupo de Recursos')
+    string(name: 'RESOURCE_GROUP_PROD', defaultValue: 'SOCIUSRGLAB-RG-MODELODEVOPS-PROD', description: 'Grupo de Recursos')
     string(name: 'APP_NAME', defaultValue: 'sociuswebapptest007', description: 'Nombre de App Service')
+    string(name: 'APP_NAME_PROD', defaultValue: 'sociuswebapptest002p', description: 'Nombre de App Service')
   }
 }
