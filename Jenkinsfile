@@ -66,11 +66,12 @@ pipeline {
         stage('Deploy Prod') {
           environment {
             dockerHome = tool 'docker'
+            dockerHub = credentials('VsDockerHub')
           }
           steps {            
             dir('prod'){
               sh "echo 'FROM nginx:1.17.1-alpine \nCOPY dist/app-angular /usr/share/nginx/html' > Dockerfile"
-              sh "${dockerHome}/bin/docker login -u valen97 -p fc8f2d2d-bc53-42ff-8010-d378dc02f0b3"
+              sh "${dockerHome}/bin/docker login -u $dockerHub_USR -p $dockerHub_PSW"
               sh "${dockerHome}/bin/docker build -t valen97/calculadora ."
               sh "${dockerHome}/bin/docker push valen97/calculadora"
               sh "${dockerHome}/bin/docker logout"
