@@ -52,13 +52,43 @@ pipeline {
         }
       }
     }
-      
+    
+    stage('Test') {
+      steps {
+        sh 'ng test --browsers ChromeHeadless'
+        sleep(time: 90, unit: 'SECONDS')
+      }
+    }
+
+    stage('SonarQube Analysis') {
+      environment {
+        sonarHome = tool 'sonar-scanner'
+        JAVA_HOME = tool 'openjdk-11'
+      }
+      steps {
+        withSonarQubeEnv('sonarqube') {
+          sh "${sonarHome}/bin/sonar-scanner"
+        }
+
+      }
+    }
+
+    stage('Quality Gate') {
+      steps {
+        waitForQualityGate true
+        echo '--- QualityGate Passed ---'
+      }
+    }
+    
     stage('Deploy') {
       parallel {
         stage('Deploy Dev') {
           steps {
             dir('dev'){
-              sh 'dev'
+              withCredentials(bindings: [azureServicePrincipal('AzureServicePrincipal')]) {
+                sh 'az login --service-principal -u $AZURE_CLIENT_ID -p $AZURE_CLIENT_SECRET -t $AZURE_TENANT_ID'
+                sh 'az webapp deployment source config-zip -g $RESOURCE_GROUP -n $APP_NAME --src '+"${ENV_DEV}"+'.zip'
+              }
             }
           }
         }
