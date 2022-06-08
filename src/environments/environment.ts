@@ -3,7 +3,9 @@
 // The list of file replacements can be found in `angular.json`.
 
 export const environment = {
-  title: '%TITLE%'
+  production: false,
+  title: '%TITLE%',
+  button: '%BUTTON%'
 };
 
 /*
