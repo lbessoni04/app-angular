@@ -1,15 +1,6 @@
 pipeline {
-  
-  agent any//{ dockerfile { args '--privileged --network=host' } }
-  //options { skipDefaultCheckout() } 
-  
+  agent any
   stages {
-    stage('Checkout'){
-        steps{
-          echo 'hola'
-        }
-    }
-
     stage('Install') {
       steps {
         echo 'hola'
@@ -17,29 +8,19 @@ pipeline {
     }
 
     stage('Build') {
-      parallel {
-        stage('Build Dev') {          
-          steps {
-            echo 'hola'
-          }
-        }
-
-        stage('Build Prod') {          
-          steps {
-            echo 'hola'
-          }
-        }
+      steps {
+        echo 'hola'
       }
     }
-    
+
     stage('Test') {
       steps {
         echo 'hola'
       }
     }
 
-    stage('SonarQube Analysis') {      
-      steps {        
+    stage('SonarQube Analysis') {
+      steps {
         echo 'hola'
       }
     }
@@ -49,22 +30,13 @@ pipeline {
         echo 'hola'
       }
     }
-    
-    stage('Deploy') {
-      parallel {
-        stage('Deploy Dev') {
-          steps {
-            echo 'hola'
-          }
-        }
 
-        stage('Deploy Prod') {          
-          steps {            
-            echo 'hola'
-          }
-        }
+    stage('Deploy') {
+      steps {
+        echo 'hola'
       }
     }
+
   }
   parameters {
     string(name: 'ENV_PROD', defaultValue: 'production', description: 'Nombre del entorno de producción')
