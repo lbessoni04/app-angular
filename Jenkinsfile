@@ -1,6 +1,6 @@
 pipeline {
   
-  agent { dockerfile { args '--privileged --network=host' } }
+  agent any//{ dockerfile { args '--privileged --network=host' } }
   //options { skipDefaultCheckout() } 
   
   stages {
