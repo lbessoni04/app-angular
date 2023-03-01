@@ -26,7 +26,7 @@ pipeline {
       }
     }
 
-    /*stage('SonarQube Analysis') {
+    stage('SonarQube Analysis') {
       environment {
         sonarHome = tool 'sonar-scanner'
         JAVA_HOME = tool 'openjdk-11'
@@ -43,7 +43,7 @@ pipeline {
         waitForQualityGate true
         echo '--- QualityGate Passed ---'
       }
-    }*/
+    }
 
     stage('Deploy') {
       environment {
