@@ -23,7 +23,6 @@ pipeline {
     stage('Test') {
       steps {
         sh 'ng test --browsers ChromeHeadless'
-        sleep(time: 90, unit: 'SECONDS')
       }
     }
 
@@ -59,7 +58,7 @@ pipeline {
         sh "${dockerHome}/bin/docker logout"
         withCredentials(bindings: [azureServicePrincipal('prodServicePrincipal')]) {
           sh 'az login --service-principal -u $AZURE_CLIENT_ID -p $AZURE_CLIENT_SECRET -t $AZURE_TENANT_ID'
-          sh 'az webapp create -n $APP_NAME_PROD -g $RESOURCE_GROUP_PROD -i valen97/calculadora'
+          sh 'az webapp create -n $APP_NAME_PROD -g $RESOURCE_GROUP_PROD -i valen97/calculadora -p $PLAN_PROD'
         }
       }
     }
@@ -68,5 +67,6 @@ pipeline {
     string(name: 'ENV_PROD', defaultValue: 'production', description: 'Nombre del entorno de producción')
     string(name: 'RESOURCE_GROUP_PROD', defaultValue: 'SOCIUSRGLAB-RG-MODELODEVOPS-PROD', description: 'Grupo de Recursos')
     string(name: 'APP_NAME_PROD', defaultValue: 'sociuswebapptest002p', description: 'Nombre de App Service')
+    string(name: 'PLAN_PROD', defaultValue: 'Plan-SociusRGLABRGModeloDevOpsDockerProd', description: 'Nombre de plan de RG')
   }
 }
