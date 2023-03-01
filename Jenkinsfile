@@ -58,7 +58,7 @@ pipeline {
         sh "${dockerHome}/bin/docker logout"
         withCredentials(bindings: [azureServicePrincipal('prodServicePrincipal')]) {
           sh 'az login --service-principal -u $AZURE_CLIENT_ID -p $AZURE_CLIENT_SECRET -t $AZURE_TENANT_ID'
-          sh 'az webapp create -n $APP_NAME_PROD -g $RESOURCE_GROUP_PROD -i valen97/calculadora -p $PLAN_PROD'
+          sh 'az webapp create -p $PLAN_PROD -n $APP_NAME_PROD -g $RESOURCE_GROUP_PROD -i valen97/calculadora'
         }
       }
     }
