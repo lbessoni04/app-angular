@@ -15,7 +15,7 @@ pipeline {
           BUTTON = 'danger'
       }
       steps {
-        contentReplace(configs: [fileContentReplaceConfig(configs: [fileContentReplaceItemConfig(replace: "${TITLE}", search: '%TITLE%|dev'), fileContentReplaceItemConfig(replace: "${BUTTON}", search: '%BUTTON%|success')], fileEncoding: 'UTF-8', filePath: "${env.WORKSPACE}" + '/prod/src/environments/environment.ts')])
+        //contentReplace(configs: [fileContentReplaceConfig(configs: [fileContentReplaceItemConfig(replace: "${TITLE}", search: '%TITLE%|dev'), fileContentReplaceItemConfig(replace: "${BUTTON}", search: '%BUTTON%|success')], fileEncoding: 'UTF-8', filePath: "${env.WORKSPACE}" + '/prod/src/environments/environment.ts')])
         sh 'ng build --configuration ${ENV_PROD}'
       }
     }
