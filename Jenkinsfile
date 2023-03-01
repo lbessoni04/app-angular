@@ -52,16 +52,14 @@ pipeline {
         dockerHub = credentials('VsDockerHub')
       }
       steps {
-        dir('prod') {
-          sh "echo 'FROM nginx:1.17.1-alpine \nCOPY dist/app-angular /usr/share/nginx/html' > Dockerfile"
-          sh "${dockerHome}/bin/docker login -u $dockerHub_USR -p $dockerHub_PSW"
-          sh "${dockerHome}/bin/docker build -t valen97/calculadora ."
-          sh "${dockerHome}/bin/docker push valen97/calculadora"
-          sh "${dockerHome}/bin/docker logout"
-          withCredentials(bindings: [azureServicePrincipal('prodServicePrincipal')]) {
-            sh 'az login --service-principal -u $AZURE_CLIENT_ID -p $AZURE_CLIENT_SECRET -t $AZURE_TENANT_ID'
-            sh 'az webapp create -n $APP_NAME_PROD -g $RESOURCE_GROUP_PROD -i valen97/calculadora'
-          }
+        sh "echo 'FROM nginx:1.17.1-alpine \nCOPY dist/app-angular /usr/share/nginx/html' > Dockerfile"
+        sh "${dockerHome}/bin/docker login -u $dockerHub_USR -p $dockerHub_PSW"
+        sh "${dockerHome}/bin/docker build -t valen97/calculadora ."
+        sh "${dockerHome}/bin/docker push valen97/calculadora"
+        sh "${dockerHome}/bin/docker logout"
+        withCredentials(bindings: [azureServicePrincipal('prodServicePrincipal')]) {
+          sh 'az login --service-principal -u $AZURE_CLIENT_ID -p $AZURE_CLIENT_SECRET -t $AZURE_TENANT_ID'
+          sh 'az webapp create -n $APP_NAME_PROD -g $RESOURCE_GROUP_PROD -i valen97/calculadora'
         }
       }
     }
