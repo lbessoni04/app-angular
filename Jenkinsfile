@@ -70,3 +70,4 @@ pipeline {
     string(name: 'PLAN_PROD', defaultValue: 'Plan-SociusRGLABRGModeloDevOpsDockerProd', description: 'Nombre de plan de RG')
   }
 }
+ 
